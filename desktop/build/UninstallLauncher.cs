@@ -1,4 +1,4 @@
-// Chinese standalone uninstall entry for the user-facing ZIP root.
+﻿// Chinese standalone uninstall entry for the user-facing ZIP root.
 // Reads the official Windows uninstall registration and invokes it normally;
 // never deletes files or registry keys by itself. Built with .NET Framework C# compiler.
 using System;
@@ -34,10 +34,10 @@ internal static class UninstallLauncher {
     private sealed class Installed { public string UninstallString; public Version Version; }
     private static Installed FindInstalled() {
         Installed choice=null;
-        foreach(var root in new[]{Registry.CurrentUser,Registry.LocalMachine}) {
+        foreach(var root in new[]{Registry.CurrentUser}) {
             using(var uninstall=root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")) {
                 if(uninstall==null)continue;
-                foreach(var key in uninstall.GetSubKeyNames()) {
+                foreach(var key in new[]{"AI-Commitment-StarMap-Agent"}) {
                     using(var item=uninstall.OpenSubKey(key)) {
                         if(item==null)continue;
                         var name=item.GetValue("DisplayName") as string;

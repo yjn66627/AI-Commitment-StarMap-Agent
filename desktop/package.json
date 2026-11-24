@@ -11,7 +11,7 @@
     "test": "node --test tests/*.test.mjs tests/v14/*.test.mjs tests/v15/*.test.mjs tests/v16/*.test.mjs tests/v18/*.test.mjs tests/v19/*.test.mjs && npm run test:contracts",
     "check": "node --check runtime/gesture-asset-validator.mjs && node --check scripts/prepare-gesture-assets.mjs && node --check electron/main.cjs && node --check electron/launcher.mjs && node --check electron/workspace/workspace-service.mjs && node --check runtime/workspace-ui/app.js && node --check runtime/workspace-ui/graph.js && node --check runtime/workspace-ui/gesture/gesture-controller.mjs && npm test",
     "test:contracts": "node tests/graph-baseline/tests/validator.test.js && node tests/graph-baseline/tests/adapter.test.js",
-    "make:win": "npm run verify:gestures && electron-builder --win nsis --x64",
+    "make:win": "npm run make:win:dir && npm run verify:winpackage && node build/maintenance/package-windows.mjs",
     "make:win:dir": "npm run verify:gestures && electron-builder --win dir --x64",
     "test:v15": "node --test tests/v15/*.test.mjs",
     "package:win": "npm run make:win:dir",

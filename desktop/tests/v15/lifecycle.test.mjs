@@ -70,11 +70,11 @@ test('authenticated local update endpoints demand same cookie and CSRF, do not r
 });
 test('NSIS installer mandates non-destructive default and double confirmation for deep purge',async()=>{
  const base=path.resolve(import.meta.dirname,'../..');const cfg=JSON.parse(await readFile(path.join(base,'electron-builder.json')));const nsis=await readFile(path.join(base,'build','installer.nsh'),'utf8');
- assert.equal(cfg.nsis.oneClick,false);assert.equal(cfg.nsis.deleteAppDataOnUninstall,false);assert.equal(cfg.nsis.allowToChangeInstallationDirectory,true);
- assert.equal(cfg.nsis.perMachine,false);assert.deepEqual(cfg.win.target[0].target,'nsis');assert.equal(cfg.win.verifyUpdateCodeSignature,true);
- assert.match(nsis,/IfSilent v16_no_data_cleanup/);assert.equal((nsis.match(/MessageBox MB_YESNO/g)||[]).length,2);
- assert.match(nsis,/\.starmap-owner-v15/);assert.match(nsis,/SafeRemoveAppData\.ps1/);assert.doesNotMatch(nsis,/RMDir \/r/);
- assert.doesNotMatch(nsis,/v14-local|v13-local|\$APPDATA\\AI承诺/);
+ assert.equal(cfg.nsis,undefined);assert.equal(cfg.win.target[0].target,'dir');assert.equal(cfg.win.verifyUpdateCodeSignature,true);
+ assert.match(nsis,/IfSilent remove/);assert.equal((nsis.match(/MessageBox MB_YESNO/g)||[]).length,2);
+ assert.match(nsis,/InstallGuard\.exe/);assert.doesNotMatch(nsis,/RMDir \/r|uninstaller\.nsh/);
+ const guard=await readFile(path.join(base,'build','maintenance','InstallGuard.cs'),'utf8');
+ assert.match(guard,/\.starmap-owner-v15/);assert.match(guard,/HasLegacyRegistration\(\)/);
  const main=await readFile(path.join(base,'electron','main.cjs'),'utf8');assert.match(main,/setPath\('userData',profile\)/);
 });
 test('update opt-in preference survives restart, default never phones home',async()=>{

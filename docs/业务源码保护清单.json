@@ -1,0 +1,57 @@
+{
+  "source": "V1.2 judge-service-limits unchanged original business and GraphContract source",
+  "files": [
+    {
+      "path": "runtime/review-service/server.mjs",
+      "sha256": "007cb0d7491e1654df95410a6f167e0050c203e687b20a38ae3c2ba326d40997"
+    },
+    {
+      "path": "runtime/review-service/provider.mjs",
+      "sha256": "7d2d2bb28cc0d2f92499f532c38ac59fc48fe5bdb78f90e783c32f3112e447b8"
+    },
+    {
+      "path": "runtime/review-service/cases.mjs",
+      "sha256": "b35863d50291f5e04b8f326f52f57a1a66a4f5b9b228c72e03746630a957e73e"
+    },
+    {
+      "path": "runtime/review-service/budget.mjs",
+      "sha256": "7b90988ecebef23bbf546a3637436e03d02c83bd54f58aa60efb2d43645011ea"
+    },
+    {
+      "path": "runtime/review-service/public/client.js",
+      "sha256": "4ccd0dcd74d554469ab5de6c0b7594914281b42c969ac0725e6aaf73ac3eb22f"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/validator.js",
+      "sha256": "3bdd267547806f3c0c9da78426e1c66a55a0acdec89a25f1c4697616a8732cdd"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/graph-contract.browser.js",
+      "sha256": "ce8131df4a02782ef0044c2a7f8083d2a8d256dc7eac7bbae07659291db2c8ba"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/report-adapter.js",
+      "sha256": "8fede0383264d6ce3e79777ba0a865b822a016150f56e020a949200a0252371a"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/report-input.browser.js",
+      "sha256": "9c2582c498acd7d439b0290794e098f4c87014b63517e7d55c04b5415633b86e"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/galaxy-3d.js",
+      "sha256": "a598e20594e8322481403c25dbb7b1b9b15a2ed0efb9a32a3f6c3f2c2a5885f9"
+    },
+    {
+      "path": "runtime/review-service/public/graph/src/galaxy-3d.css",
+      "sha256": "d3da7fc136ee0bfab77581ad11538d2d277b6a2682c9a0e449151693a1fd61a6"
+    },
+    {
+      "path": "runtime/review-service/public/graph/vendor/cytoscape.local-3.33.1.js",
+      "sha256": "f55947f3daa3bae53209d4b885c195c157f595c225e508a6b382598d9452d6e2"
+    },
+    {
+      "path": "runtime/review-service/public/graph/fixtures/competition-synthetic-report.browser.js",
+      "sha256": "7f32a3b03fb352fa5c5e7318d265749dcb226fc6936986bcd07ee2466b8356b5"
+    }
+  ]
+}
