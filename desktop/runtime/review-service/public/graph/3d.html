@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>AI承诺审计星图-智能体 | 3D精密情报中枢 V1.3桌面版</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="src/galaxy-3d.css">
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brand-glyph"><span>◇</span></div><div><div class="brand-name">AI承诺审计星图<span class="brand-suffix"> / 智能体</span></div><div class="brand-sub">COMMITMENT INTELLIGENCE CONSTELLATION</div></div></div>
+  <div class="top-center"><span class="blink" aria-hidden="true"></span> <strong>VISUAL ANALYTICS</strong><span class="top-sep">/</span><span>3D 情报工作台</span></div>
+  <div class="top-right"><span class="top-private"><i></i>仅本地 · 合成演示</span><span id="clock" class="clock">DESKTOP · LOCAL ONLY</span><a class="compact" id="desktop-review-link" href="/">▤ 合成案例</a><label class="compact import-control" for="file-input" role="button" tabindex="0">↥ 导入合成JSON</label><input type="file" id="file-input" accept=".json,application/json" hidden><button class="compact" id="btn-restore" type="button">↺ 恢复案例</button><button class="compact" id="btn-guide" type="button" aria-label="操作说明">使用说明 ?</button></div>
+</header>
+<div class="workspace">
+<aside class="left">
+  <div class="side-heading"><span class="overline">CONSOLE / 01</span><h2>探索控制台</h2><p>结构化证据 · 可交互视图</p></div>
+  <div class="side-line"></div>
+  <div class="left-section"><div class="field-title">定位业务实体 <span class="tiny">SEARCH</span></div><label class="search-box"><span>⌕</span><input type="search" id="search-nodes" placeholder="节点名称或ID" autocomplete="off" aria-label="搜索业务节点"/><kbd>/</kbd></label></div>
+  <div class="left-section"><div class="field-title">显示业务类型 <span class="tiny">FILTER</span></div><div id="type-filters" class="type-filters">
+    <label class="type-option"><input type="checkbox" data-type="commitment" checked><i class="t-dot commitment"></i><span>承诺</span><b id="count-commitment">—</b></label>
+    <label class="type-option"><input type="checkbox" data-type="person" checked><i class="t-dot person"></i><span>责任人</span><b id="count-person">—</b></label>
+    <label class="type-option"><input type="checkbox" data-type="evidence" checked><i class="t-dot evidence"></i><span>证据</span><b id="count-evidence">—</b></label>
+    <label class="type-option"><input type="checkbox" data-type="deadline" checked><i class="t-dot deadline"></i><span>期限</span><b id="count-deadline">—</b></label>
+    <label class="type-option"><input type="checkbox" data-type="risk" checked><i class="t-dot risk"></i><span>风险</span><b id="count-risk">—</b></label>
+  </div></div>
+  <div class="side-line"></div>
+  <div class="left-section"><div class="field-title">关系证据层 <span class="tiny">LAYERS</span></div>
+    <label class="switch-row"><input type="checkbox" id="show-direct" checked><span>直接陈述</span><i class="line-demo direct"></i></label>
+    <label class="switch-row"><input type="checkbox" id="show-inferred" checked><span>模拟推断 · 待复核</span><i class="line-demo infer"></i></label>
+    <label class="switch-row"><input type="checkbox" id="show-ambient" checked><span>背景星域装饰</span><i class="stars-demo">✦</i></label>
+  </div>
+  <div class="side-line"></div>
+  <div class="left-section"><div class="field-title">三维镜头 <span class="tiny">CAMERA</span></div>
+    <div class="camera-ctl"><button id="btn-zoom-in" type="button" aria-label="镜头放大">＋</button><button id="btn-zoom-out" type="button" aria-label="镜头缩小">－</button><button id="btn-home" type="button">⌖ 还原视角</button></div>
+    <div class="left-hint">左键拖动：旋转星图<br>滚轮：缩放 · 右键拖动：平移<br>单击节点：聚焦证据</div>
+  </div>
+  <div class="left-bottom"><span class="indicator-green"></span><span>本地渲染 / 无网络请求</span><small>VALIDATION FIRST · NO AI CALL</small></div>
+</aside>
+<main class="center">
+  <div class="overview-top"><div class="eyebrow"><span class="eyebrow-dash"></span> 02 / NETWORK EXPLORATION</div><div class="viewmode"><span class="mode-selected">▣ 3D 空间关系</span><a href="index.html" id="link-2d">▦ 原始 2D 图谱</a></div></div>
+  <section class="canvas-shell" aria-label="3D可交互的合成关系图谱">
+    <div class="canvas-head"><div><h1>承诺关系网络 <span>· 三维审计空间</span></h1><p>观察真实可见关系的空间分布，并逐条追踪合成证据</p></div><div class="canvas-topright"><span class="live-pin"></span> EXPLORE MODE <b id="camera-state">三维视角</b></div></div>
+    <canvas id="galaxy" tabindex="0" role="img" aria-label="可拖动旋转、滚轮缩放、单击节点和关系查看证据的三维承诺星图"></canvas>
+    <div id="canvas-error" class="canvas-error" hidden>数据尚未通过验证，已停止绘制。</div>
+    <div class="orientation" aria-hidden="true"><span class="coord-x">X</span><span class="coord-y">Y</span><span class="coord-z">Z</span><div class="axis-dot"></div></div>
+    
+    <div class="lower-status"><span id="status-led" class="ok-led"></span><span id="status">正在执行数据契约及跨引用验证…</span></div>
+  </section>
+  <div class="metrics">
+    <div class="metric"><div class="metric-icon blue">✦</div><div><span>可见业务节点</span><strong id="metric-nodes">—</strong></div><small>ENTITIES</small></div>
+    <div class="metric"><div class="metric-icon cyan">⌁</div><div><span>有效关系连线</span><strong id="metric-edges">—</strong></div><small>LINKS</small></div>
+    <div class="metric"><div class="metric-icon amber">◇</div><div><span>未知/受限关系</span><strong id="metric-hidden">—</strong></div><small>WITHHELD</small></div>
+    <div class="metric"><div class="metric-icon purple">▣</div><div><span>源证据条目</span><strong id="metric-evidence">—</strong></div><small>TRACEABLE</small></div>
+  </div>
+  <div class="bottom-strip"><div class="bottom-head"><span class="eyebrow">RELATION OVERVIEW</span><strong>结构关系导航</strong></div><div id="quick-nodes" class="quick-nodes"></div><div class="strip-note"><span>说明</span> 本图仅使用已核验的合成数据。虚线关系表示模拟推断，未知关系不绘制；左键旋转、滚轮缩放、右键平移。</div></div>
+</main>
+<aside class="right"><div class="right-top"><div><span class="overline">INSPECTOR / 03</span><h2>证据审计面板</h2></div><span class="pill">LOCAL ONLY</span></div>
+ <div class="right-tabs"><button class="active" id="tab-detail" type="button">证据追溯</button><button id="tab-policy" type="button">校验边界</button></div>
+ <div id="inspector" class="inspector" aria-live="polite"></div>
+ <div class="right-foot"><div class="right-rule"><span>✓</span> 证据链遵循原GraphContract及跨引用验证</div><div class="right-rule"><span>✓</span> 复核状态直接来自已验证合成数据</div><div class="right-rule"><span>✓</span> 不生成或补写未经证实的事实关系</div></div>
+</aside>
+</div>
+<div class="footbar"><span>AI COMMITMENT AUDIT CONSTELLATION <i>/</i> 3D VISUAL UPGRADE · SEPARATE BRANCH</span><span>独立桌面版 V1.3 · 手动控制镜头 · 竞赛原冻结版本保持不变</span></div>
+</div>
+<div id="guide-dialog" class="overlay" hidden><div class="guide-card"><button id="close-guide" type="button" class="guide-close" aria-label="关闭说明">×</button><span class="overline">INTERACTION MANUAL</span><h2>三维视图操作</h2><p>左键拖动可从不同角度观察业务节点，滚轮缩放、右键拖动平移，点击节点或关系查看证据。镜头和背景均不自动旋转。</p><p>背景点光只是装饰，不参与业务统计或图谱关系；本版本仅使用原项目合成案例，不调用真实AI模型。</p><button id="guide-ok" class="guide-ok" type="button">了解，开始探索</button></div></div>
+<script src="src/validator.js"></script>
+<script src="src/graph-contract.browser.js"></script>
+<script src="src/report-input.browser.js"></script>
+<script src="src/report-adapter.js"></script>
+<script src="fixtures/competition-synthetic-report.browser.js"></script>
+<script src="src/galaxy-3d.js"></script>
+</body></html>

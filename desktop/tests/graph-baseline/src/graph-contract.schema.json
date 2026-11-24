@@ -1,0 +1,826 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ai-commitment-constellation/a0/graph-contract-proposal-0.2.schema.json",
+  "title": "AI承诺星图 GraphContract A0 proposal-0.2 (NOT V2 real API)",
+  "description": "A0 research-only proposed exchange contract for synthetic/masked graph data; not derived from V2.0 code. Reference integrity and endpoint sematics need a separate validator; JSON Schema alone cannot check cross-array refs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "data_class",
+    "case_id",
+    "sources",
+    "evidence",
+    "nodes",
+    "edges",
+    "warnings"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "proposal-0.2"
+    },
+    "data_class": {
+      "enum": [
+        "fully_synthetic_demo",
+        "masked_case_export"
+      ]
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[A-Za-z0-9_.:-]+$"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "maxItems": 500
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "maxItems": 1000
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "maxItems": 500
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edge"
+      },
+      "maxItems": 1000
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/warning"
+      },
+      "maxItems": 1000
+    },
+    "review_events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/review_event"
+      },
+      "maxItems": 500
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layout_hint": {
+          "enum": [
+            "preset",
+            "breadthfirst",
+            "grid",
+            "cose"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "fixture_banner": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[A-Za-z0-9_.:-]+$"
+    },
+    "id_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true,
+      "maxItems": 50
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_kind",
+        "review_status",
+        "render_policy"
+      ],
+      "properties": {
+        "assertion_kind": {
+          "enum": [
+            "source_direct",
+            "ai_inference",
+            "unknown"
+          ]
+        },
+        "review_status": {
+          "enum": [
+            "not_required",
+            "not_reviewed",
+            "pending",
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "render_policy": {
+          "enum": [
+            "show",
+            "withhold",
+            "placeholder_only"
+          ]
+        },
+        "unknown_reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "review_event_ref": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assertion_kind": {
+                "const": "unknown"
+              }
+            },
+            "required": [
+              "assertion_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "unknown_reason"
+            ],
+            "properties": {
+              "render_policy": {
+                "enum": [
+                  "withhold",
+                  "placeholder_only"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_status": {
+                "enum": [
+                  "confirmed",
+                  "rejected"
+                ]
+              }
+            },
+            "required": [
+              "review_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "review_event_ref"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_status": {
+                "const": "rejected"
+              }
+            },
+            "required": [
+              "review_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "render_policy": {
+                "const": "withhold"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_refs",
+        "evidence_refs",
+        "derivation_method"
+      ],
+      "properties": {
+        "source_refs": {
+          "$ref": "#/$defs/id_list"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/id_list"
+        },
+        "derivation_method": {
+          "enum": [
+            "quoted_source",
+            "ai_inference",
+            "human_review",
+            "unresolved"
+          ]
+        },
+        "model_output_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 160
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "origin_kind",
+        "display_name",
+        "access_state"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "origin_kind": {
+          "enum": [
+            "synthetic_meeting",
+            "synthetic_email",
+            "masked_document",
+            "masked_report",
+            "synthetic_other",
+            "unknown"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "access_state": {
+          "enum": [
+            "synthetic",
+            "masked",
+            "restricted",
+            "unavailable"
+          ]
+        },
+        "document_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 300
+        },
+        "external_url": {
+          "type": "null",
+          "description": "For A0/A stages outbound URLs are forbidden; allow no external data link."
+        }
+      }
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "section": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "paragraph_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "char_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "char_end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "locator_quality": {
+          "enum": [
+            "exact",
+            "approximate",
+            "unavailable"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_ref",
+        "locator",
+        "excerpt",
+        "privacy_state",
+        "traceability"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "excerpt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000,
+          "description": "Masked/synthetic excerpt only. Null for restricted or unavailable."
+        },
+        "privacy_state": {
+          "enum": [
+            "synthetic",
+            "masked",
+            "withheld"
+          ]
+        },
+        "traceability": {
+          "enum": [
+            "located",
+            "approximate",
+            "unavailable"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 400
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "privacy_state": {
+                "const": "withheld"
+              }
+            },
+            "required": [
+              "privacy_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "excerpt": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "label",
+        "status",
+        "provenance",
+        "sensitivity"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "person",
+            "commitment",
+            "evidence",
+            "deadline",
+            "risk",
+            "review"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "sensitivity": {
+          "enum": [
+            "synthetic",
+            "masked",
+            "restricted"
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "maxProperties": 20,
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "position": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "source_direct"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  },
+                  "source_refs": {
+                    "minItems": 1
+                  },
+                  "derivation_method": {
+                    "const": "quoted_source"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "ai_inference"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  },
+                  "derivation_method": {
+                    "const": "ai_inference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "unknown"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "derivation_method": {
+                    "const": "unresolved"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "from",
+        "to",
+        "relation",
+        "status",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "from": {
+          "$ref": "#/$defs/id"
+        },
+        "to": {
+          "$ref": "#/$defs/id"
+        },
+        "relation": {
+          "enum": [
+            "assigned_to",
+            "evidenced_by",
+            "due_on",
+            "may_expose_to",
+            "reviewed_by",
+            "supports",
+            "contradicts",
+            "unknown"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "source_direct"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  },
+                  "source_refs": {
+                    "minItems": 1
+                  },
+                  "derivation_method": {
+                    "const": "quoted_source"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "ai_inference"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  },
+                  "derivation_method": {
+                    "const": "ai_inference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "properties": {
+                  "assertion_kind": {
+                    "const": "unknown"
+                  }
+                },
+                "required": [
+                  "assertion_kind"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "relation": {
+                "const": "unknown"
+              },
+              "status": {
+                "properties": {
+                  "render_policy": {
+                    "const": "withhold"
+                  }
+                }
+              },
+              "provenance": {
+                "properties": {
+                  "derivation_method": {
+                    "const": "unresolved"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "MISSING_SOURCE",
+            "MISSING_EVIDENCE",
+            "DANGLING_REF",
+            "UNSUPPORTED_RELATION",
+            "REVIEW_PENDING",
+            "REDACTED_SOURCE",
+            "UNVERIFIED_OUTPUT",
+            "UNKNOWN_VALUE",
+            "SCHEMA_ERROR",
+            "DUPLICATE_ID",
+            "OTHER"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "related_ref": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "review_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "decision",
+        "actor_ref",
+        "occurred_at",
+        "target_kind",
+        "target_ref"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "decision": {
+          "enum": [
+            "confirm",
+            "reject"
+          ]
+        },
+        "actor_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "target_kind": {
+          "type": "string",
+          "enum": [
+            "node",
+            "edge"
+          ],
+          "description": "One and only one review target category."
+        },
+        "target_ref": {
+          "$ref": "#/$defs/id",
+          "description": "Exact node/edge ID bound to this review event."
+        }
+      }
+    }
+  }
+}

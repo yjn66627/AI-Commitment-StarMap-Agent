@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI承诺审计星图-智能体 · 桌面合成案例</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/client.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><p class="kicker">独立桌面版 · 完全合成演示</p><h1>AI承诺审计星图-智能体</h1><p>从项目沟通记录中核对承诺与风险，回到原始段落检查依据。</p></header>
+    <section id="login-pane">
+      <h2>本机会话已结束</h2><p>请在应用的“视图”菜单中点击“恢复本机会话”，无需输入原竞赛账号。</p>
+      <form id="login" style="display:none">
+        <label>评委账号<input id="username" required maxlength="40" autocomplete="username"></label>
+        <label>评委密码<input id="password" required type="password" maxlength="128" autocomplete="current-password"></label>
+        <button>登录</button>
+      </form>
+    </section>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <div id="review-pane" hidden>
+      <section>
+        <h2>合成案例分析</h2>
+        <p id="mode"></p>
+        <label for="case">案例</label><select id="case"></select>
+        <div id="records"></div>
+        <button id="analyze">分析当前案例</button>
+        <button id="logout" class="secondary">退出登录</button>
+      </section>
+      <section id="result" hidden>
+        <h2>分析结果与引用</h2>
+        <p id="result-label"></p>
+        <p>来源编号已核对。请读原文判断结论是否得到支持。</p>
+        <div id="findings"></div>
+      </section>
+      <section>
+        <h2>独立合成星图</h2>
+        <p>星图使用预置案例，可筛选关系并核对来源与复核记录。上方分析结果与星图使用独立的数据入口。</p>
+        <a href="/graph/" >打开二维合成图谱</a>
+        <a href="/graph/3d.html" style="margin-left:14px">✦ 返回3D审计星图（合成数据）</a>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

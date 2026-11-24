@@ -1,0 +1,37 @@
+{
+  "name": "ai-commitment-audit-constellation-desktop",
+  "productName": "AI承诺审计星图-智能体",
+  "private": true,
+  "version": "2.0.0",
+  "description": "本地承诺审计、三维关系图谱、多模型接口及离线摄像头手势操控",
+  "license": "UNLICENSED",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.mjs tests/v14/*.test.mjs tests/v15/*.test.mjs tests/v16/*.test.mjs tests/v18/*.test.mjs tests/v19/*.test.mjs && npm run test:contracts",
+    "check": "node --check runtime/gesture-asset-validator.mjs && node --check scripts/prepare-gesture-assets.mjs && node --check electron/main.cjs && node --check electron/launcher.mjs && node --check electron/workspace/workspace-service.mjs && node --check runtime/workspace-ui/app.js && node --check runtime/workspace-ui/graph.js && node --check runtime/workspace-ui/gesture/gesture-controller.mjs && npm test",
+    "test:contracts": "node tests/graph-baseline/tests/validator.test.js && node tests/graph-baseline/tests/adapter.test.js",
+    "make:win": "npm run verify:gestures && electron-builder --win nsis --x64",
+    "make:win:dir": "npm run verify:gestures && electron-builder --win dir --x64",
+    "test:v15": "node --test tests/v15/*.test.mjs",
+    "package:win": "npm run make:win:dir",
+    "prepare:gestures": "node scripts/prepare-gesture-assets.mjs",
+    "verify:gestures": "node scripts/verify-gesture-assets.mjs",
+    "verify:winpackage": "node scripts/verify-packaged-gesture.mjs"
+  },
+  "author": "独立桌面视觉衍生项目",
+  "config": {
+    "runMode": "local-synthetic-demo"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "@electron/packager": "20.3.0",
+    "electron-builder": "26.18.1",
+    "@mediapipe/tasks-vision": "0.10.35",
+    "@electron/asar": "4.1.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {}
+}

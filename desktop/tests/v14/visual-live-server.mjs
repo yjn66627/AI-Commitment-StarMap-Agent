@@ -1,0 +1,11 @@
+import {mkdtemp,rm} from 'node:fs/promises';
+import os from 'node:os';import path from 'node:path';
+import {startWorkspaceService} from '../../electron/workspace/workspace-service.mjs';
+import {KeyVault} from '../../electron/workspace/key-vault.mjs';
+const folder=await mkdtemp(path.join(os.tmpdir(),'starmap-v14-visual-'));
+const safeStorage={isAsyncEncryptionAvailable:async()=>true,encryptStringAsync:async s=>Buffer.from('mock:'+s),decryptStringAsync:async b=>({result:b.toString().slice(5),shouldReEncrypt:false})};
+const vault=new KeyVault(folder,safeStorage);
+const app=await startWorkspaceService({dataDir:folder,vault,runModel:async()=>'{"suggestions":[]}'});
+console.log(JSON.stringify({origin:app.origin,cookie:app.cookie}));
+const close=async()=>{await app.stop();await rm(folder,{recursive:true,force:true});process.exit();};
+process.on('SIGINT',close);process.on('SIGTERM',close);

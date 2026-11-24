@@ -1,0 +1,516 @@
+{
+  "schema_version": "proposal-0.2",
+  "data_class": "fully_synthetic_demo",
+  "case_id": "SYNTHETIC_CONSTELLATION_01",
+  "sources": [
+    {
+      "id": "SRC_MEET",
+      "origin_kind": "synthetic_meeting",
+      "display_name": "虚构会议纪要 · 11月5日",
+      "access_state": "synthetic"
+    },
+    {
+      "id": "SRC_EMAIL",
+      "origin_kind": "synthetic_email",
+      "display_name": "虚构沟通邮件 · 11月6日",
+      "access_state": "synthetic"
+    },
+    {
+      "id": "SRC_CHECK",
+      "origin_kind": "synthetic_other",
+      "display_name": "虚构离线检查表 · 11月7日",
+      "access_state": "synthetic"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV_MEET",
+      "source_ref": "SRC_MEET",
+      "locator": {
+        "section": "虚构纪要 / 第2节",
+        "paragraph_index": 1,
+        "line_start": 3,
+        "line_end": 3,
+        "locator_quality": "exact"
+      },
+      "excerpt": "【纯合成】角色甲承诺于2026年11月12日前交付交互原型，由角色甲负责推进。",
+      "privacy_state": "synthetic",
+      "traceability": "located"
+    },
+    {
+      "id": "EV_EMAIL",
+      "source_ref": "SRC_EMAIL",
+      "locator": {
+        "section": "虚构邮件 / 正文",
+        "paragraph_index": 0,
+        "line_start": 1,
+        "line_end": 1,
+        "locator_quality": "exact"
+      },
+      "excerpt": "【纯合成】角色乙承诺整理证据核验清单，但这条消息没有写明完成日期。",
+      "privacy_state": "synthetic",
+      "traceability": "located"
+    },
+    {
+      "id": "EV_CHECK",
+      "source_ref": "SRC_CHECK",
+      "locator": {
+        "section": "虚构检查表 / 第3项",
+        "paragraph_index": 2,
+        "line_start": 5,
+        "line_end": 5,
+        "locator_quality": "exact"
+      },
+      "excerpt": "【纯合成】交互原型的断网浏览器验证尚未完成。此条仅记录检查状态，不构成实际违约判定。",
+      "privacy_state": "synthetic",
+      "traceability": "located"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "P_A",
+      "type": "person",
+      "label": "角色甲\n责任人",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 130,
+        "y": 180
+      }
+    },
+    {
+      "id": "C_A",
+      "type": "commitment",
+      "label": "承诺A\n交付交互原型",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "confirmed",
+        "render_policy": "show",
+        "review_event_ref": "REV_C_A"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET",
+          "SRC_CHECK"
+        ],
+        "evidence_refs": [
+          "EV_MEET",
+          "EV_CHECK"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 470,
+        "y": 180
+      }
+    },
+    {
+      "id": "N_EV_MEET",
+      "type": "evidence",
+      "label": "证据A\n会议纪要",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 820,
+        "y": 90
+      },
+      "attributes": {
+        "evidence_id": "EV_MEET"
+      }
+    },
+    {
+      "id": "D_A",
+      "type": "deadline",
+      "label": "期限A\n11月12日",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 850,
+        "y": 260
+      }
+    },
+    {
+      "id": "N_EV_CHECK",
+      "type": "evidence",
+      "label": "证据C\n离线检查",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_CHECK"
+        ],
+        "evidence_refs": [
+          "EV_CHECK"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 820,
+        "y": 405
+      },
+      "attributes": {
+        "evidence_id": "EV_CHECK"
+      }
+    },
+    {
+      "id": "R_A",
+      "type": "risk",
+      "label": "潜在演示风险\n待人工复核",
+      "status": {
+        "assertion_kind": "ai_inference",
+        "review_status": "pending",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_CHECK"
+        ],
+        "evidence_refs": [
+          "EV_CHECK"
+        ],
+        "derivation_method": "ai_inference",
+        "notes": "仅基于虚构记录的规则模拟推断；未调用真实模型。"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 1190,
+        "y": 380
+      }
+    },
+    {
+      "id": "P_B",
+      "type": "person",
+      "label": "角色乙\n责任人",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_EMAIL"
+        ],
+        "evidence_refs": [
+          "EV_EMAIL"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 130,
+        "y": 535
+      }
+    },
+    {
+      "id": "C_B",
+      "type": "commitment",
+      "label": "承诺B\n整理核验清单",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "pending",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_EMAIL"
+        ],
+        "evidence_refs": [
+          "EV_EMAIL"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 470,
+        "y": 535
+      }
+    },
+    {
+      "id": "N_EV_EMAIL",
+      "type": "evidence",
+      "label": "证据B\n沟通邮件",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_EMAIL"
+        ],
+        "evidence_refs": [
+          "EV_EMAIL"
+        ],
+        "derivation_method": "quoted_source"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 850,
+        "y": 640
+      },
+      "attributes": {
+        "evidence_id": "EV_EMAIL"
+      }
+    },
+    {
+      "id": "D_UNKNOWN",
+      "type": "deadline",
+      "label": "完成日期未知\n未建立连线",
+      "status": {
+        "assertion_kind": "unknown",
+        "review_status": "not_reviewed",
+        "render_policy": "placeholder_only",
+        "unknown_reason": "虚构邮件没有提供承诺B的完成日期，禁止推测。"
+      },
+      "provenance": {
+        "source_refs": [],
+        "evidence_refs": [],
+        "derivation_method": "unresolved"
+      },
+      "sensitivity": "synthetic",
+      "position": {
+        "x": 1200,
+        "y": 650
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "REL_ASSIGN_A",
+      "from": "P_A",
+      "to": "C_A",
+      "relation": "assigned_to",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_EVID_A",
+      "from": "C_A",
+      "to": "N_EV_MEET",
+      "relation": "evidenced_by",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_DUE_A",
+      "from": "C_A",
+      "to": "D_A",
+      "relation": "due_on",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_MEET"
+        ],
+        "evidence_refs": [
+          "EV_MEET"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_CHECK_A",
+      "from": "C_A",
+      "to": "N_EV_CHECK",
+      "relation": "evidenced_by",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_CHECK"
+        ],
+        "evidence_refs": [
+          "EV_CHECK"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_RISK_A",
+      "from": "C_A",
+      "to": "R_A",
+      "relation": "may_expose_to",
+      "status": {
+        "assertion_kind": "ai_inference",
+        "review_status": "pending",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_CHECK"
+        ],
+        "evidence_refs": [
+          "EV_CHECK"
+        ],
+        "derivation_method": "ai_inference",
+        "notes": "演示规则模拟，不代表实际运行AI模型。"
+      }
+    },
+    {
+      "id": "REL_ASSIGN_B",
+      "from": "P_B",
+      "to": "C_B",
+      "relation": "assigned_to",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_EMAIL"
+        ],
+        "evidence_refs": [
+          "EV_EMAIL"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_EVID_B",
+      "from": "C_B",
+      "to": "N_EV_EMAIL",
+      "relation": "evidenced_by",
+      "status": {
+        "assertion_kind": "source_direct",
+        "review_status": "not_reviewed",
+        "render_policy": "show"
+      },
+      "provenance": {
+        "source_refs": [
+          "SRC_EMAIL"
+        ],
+        "evidence_refs": [
+          "EV_EMAIL"
+        ],
+        "derivation_method": "quoted_source"
+      }
+    },
+    {
+      "id": "REL_UNKNOWN_B",
+      "from": "C_B",
+      "to": "D_UNKNOWN",
+      "relation": "unknown",
+      "status": {
+        "assertion_kind": "unknown",
+        "review_status": "not_reviewed",
+        "render_policy": "withhold",
+        "unknown_reason": "原沟通未明确约定完成日期。"
+      },
+      "provenance": {
+        "source_refs": [],
+        "evidence_refs": [],
+        "derivation_method": "unresolved"
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "code": "REVIEW_PENDING",
+      "severity": "warning",
+      "message": "潜在演示风险是基于虚构检查记录的演示推断，仍待人工复核。",
+      "related_ref": "REL_RISK_A"
+    },
+    {
+      "code": "UNKNOWN_VALUE",
+      "severity": "info",
+      "message": "承诺B的完成日期未被说明，未知边已禁止渲染。",
+      "related_ref": "REL_UNKNOWN_B"
+    },
+    {
+      "code": "UNVERIFIED_OUTPUT",
+      "severity": "info",
+      "message": "本数据集完全虚构，未调用真实AI模型。"
+    }
+  ],
+  "review_events": [
+    {
+      "id": "REV_C_A",
+      "decision": "confirm",
+      "actor_ref": "P_B",
+      "occurred_at": "2026-11-08T10:00:00Z",
+      "notes": "【纯合成】仅确认承诺A与所列虚构证据的引用对应，不确认现实履约。",
+      "target_kind": "node",
+      "target_ref": "SRC_MEET"
+    }
+  ],
+  "presentation": {
+    "layout_hint": "preset",
+    "title": "完全合成的承诺、责任人、证据与风险网络",
+    "fixture_banner": true
+  }
+}

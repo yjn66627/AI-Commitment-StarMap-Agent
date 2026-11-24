@@ -1,0 +1,322 @@
+{
+  "report_version": "competition-report-proposal-0.1",
+  "data_class": "fully_synthetic_demo",
+  "project_key": "SYNTHETIC_CONSTELLATION_01",
+  "project_title": "完全合成的承诺、责任人、证据与风险网络",
+  "source_documents": [
+    {
+      "key": "SRC_MEET",
+      "channel": "meeting",
+      "title": "虚构会议纪要 · 11月5日"
+    },
+    {
+      "key": "SRC_EMAIL",
+      "channel": "email",
+      "title": "虚构沟通邮件 · 11月6日"
+    },
+    {
+      "key": "SRC_CHECK",
+      "channel": "other",
+      "title": "虚构离线检查表 · 11月7日"
+    }
+  ],
+  "evidence_records": [
+    {
+      "key": "EV_MEET",
+      "document_key": "SRC_MEET",
+      "location": {
+        "section": "虚构纪要 / 第2节",
+        "paragraph_index": 1,
+        "line_start": 3,
+        "line_end": 3,
+        "locator_quality": "exact"
+      },
+      "quotation": "【纯合成】角色甲承诺于2026年11月12日前交付交互原型，由角色甲负责推进。",
+      "position": {
+        "x": 820,
+        "y": 90
+      }
+    },
+    {
+      "key": "EV_EMAIL",
+      "document_key": "SRC_EMAIL",
+      "location": {
+        "section": "虚构邮件 / 正文",
+        "paragraph_index": 0,
+        "line_start": 1,
+        "line_end": 1,
+        "locator_quality": "exact"
+      },
+      "quotation": "【纯合成】角色乙承诺整理证据核验清单，但这条消息没有写明完成日期。",
+      "position": {
+        "x": 850,
+        "y": 640
+      }
+    },
+    {
+      "key": "EV_CHECK",
+      "document_key": "SRC_CHECK",
+      "location": {
+        "section": "虚构检查表 / 第3项",
+        "paragraph_index": 2,
+        "line_start": 5,
+        "line_end": 5,
+        "locator_quality": "exact"
+      },
+      "quotation": "【纯合成】交互原型的断网浏览器验证尚未完成。此条仅记录检查状态，不构成实际违约判定。",
+      "position": {
+        "x": 820,
+        "y": 405
+      }
+    }
+  ],
+  "people": [
+    {
+      "key": "P_A",
+      "title": "角色甲\n责任人",
+      "evidence_keys": [
+        "EV_MEET"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      },
+      "position": {
+        "x": 130,
+        "y": 180
+      }
+    },
+    {
+      "key": "P_B",
+      "title": "角色乙\n责任人",
+      "evidence_keys": [
+        "EV_EMAIL"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      },
+      "position": {
+        "x": 130,
+        "y": 535
+      }
+    }
+  ],
+  "commitments": [
+    {
+      "key": "C_A",
+      "title": "承诺A\n交付交互原型",
+      "evidence_keys": [
+        "EV_MEET",
+        "EV_CHECK"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "confirmed",
+        "review_key": "REV_C_A"
+      },
+      "position": {
+        "x": 470,
+        "y": 180
+      }
+    },
+    {
+      "key": "C_B",
+      "title": "承诺B\n整理核验清单",
+      "evidence_keys": [
+        "EV_EMAIL"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "pending"
+      },
+      "position": {
+        "x": 470,
+        "y": 535
+      }
+    }
+  ],
+  "deadlines": [
+    {
+      "key": "D_A",
+      "title": "期限A\n11月12日",
+      "evidence_keys": [
+        "EV_MEET"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      },
+      "position": {
+        "x": 850,
+        "y": 260
+      }
+    },
+    {
+      "key": "D_UNKNOWN",
+      "title": "完成日期未知\n未建立连线",
+      "evidence_keys": [],
+      "assessment": {
+        "assertion": "unknown",
+        "review_state": "unreviewed",
+        "unknown_reason": "虚构邮件没有提供承诺B的完成日期，禁止推测。"
+      },
+      "position": {
+        "x": 1200,
+        "y": 650
+      }
+    }
+  ],
+  "risks": [
+    {
+      "key": "R_A",
+      "title": "潜在演示风险\n待人工复核",
+      "evidence_keys": [
+        "EV_CHECK"
+      ],
+      "assessment": {
+        "assertion": "inference",
+        "review_state": "pending"
+      },
+      "position": {
+        "x": 1190,
+        "y": 380
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "key": "REL_ASSIGN_A",
+      "subject_key": "P_A",
+      "object_key": "C_A",
+      "kind": "assigned_to",
+      "evidence_keys": [],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_EVID_A",
+      "subject_key": "C_A",
+      "object_key": "N_EV_MEET",
+      "kind": "evidenced_by",
+      "evidence_keys": [
+        "EV_MEET"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_DUE_A",
+      "subject_key": "C_A",
+      "object_key": "D_A",
+      "kind": "due_on",
+      "evidence_keys": [
+        "EV_MEET"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_CHECK_A",
+      "subject_key": "C_A",
+      "object_key": "N_EV_CHECK",
+      "kind": "evidenced_by",
+      "evidence_keys": [
+        "EV_CHECK"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_RISK_A",
+      "subject_key": "C_A",
+      "object_key": "R_A",
+      "kind": "may_expose_to",
+      "evidence_keys": [
+        "EV_CHECK"
+      ],
+      "assessment": {
+        "assertion": "inference",
+        "review_state": "pending"
+      }
+    },
+    {
+      "key": "REL_ASSIGN_B",
+      "subject_key": "P_B",
+      "object_key": "C_B",
+      "kind": "assigned_to",
+      "evidence_keys": [
+        "EV_EMAIL"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_EVID_B",
+      "subject_key": "C_B",
+      "object_key": "N_EV_EMAIL",
+      "kind": "evidenced_by",
+      "evidence_keys": [
+        "EV_EMAIL"
+      ],
+      "assessment": {
+        "assertion": "direct",
+        "review_state": "unreviewed"
+      }
+    },
+    {
+      "key": "REL_UNKNOWN_B",
+      "subject_key": "C_B",
+      "object_key": "D_UNKNOWN",
+      "kind": "unknown",
+      "evidence_keys": [],
+      "assessment": {
+        "assertion": "unknown",
+        "review_state": "unreviewed",
+        "unknown_reason": "原沟通未明确约定完成日期。"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "key": "REV_C_A",
+      "reviewer_key": "P_B",
+      "target": {
+        "kind": "node",
+        "key": "C_A"
+      },
+      "decision": "confirm",
+      "recorded_at": "2026-11-08T10:00:00Z",
+      "remark": "【纯合成】仅确认承诺A与所列虚构证据的引用对应，不确认现实履约。"
+    }
+  ],
+  "notices": [
+    {
+      "code": "REVIEW_PENDING",
+      "severity": "warning",
+      "message": "潜在演示风险是基于虚构检查记录的演示推断，仍待人工复核。",
+      "related_key": "REL_RISK_A"
+    },
+    {
+      "code": "UNKNOWN_VALUE",
+      "severity": "info",
+      "message": "承诺B的完成日期未被说明，未知边已禁止渲染。",
+      "related_key": "REL_UNKNOWN_B"
+    },
+    {
+      "code": "UNVERIFIED_OUTPUT",
+      "severity": "info",
+      "message": "本数据集完全虚构，未调用真实AI模型。"
+    }
+  ]
+}

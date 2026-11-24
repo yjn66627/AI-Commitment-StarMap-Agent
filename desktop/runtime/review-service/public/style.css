@@ -1,0 +1,11 @@
+:root{color-scheme:dark;font:17px/1.65 "Microsoft YaHei",system-ui,sans-serif;background:#0c1524;color:#e6eef7}
+*{box-sizing:border-box}main{max-width:920px;margin:auto;padding:40px 20px 70px}header{margin-bottom:24px}
+h1{font-size:clamp(2.1rem,5vw,3.5rem);margin:0;line-height:1.16}h2,h3{line-height:1.3}
+section{background:#142237;border:1px solid #30455d;border-radius:14px;padding:19px 24px;margin:14px 0}
+p{margin:.55em 0;color:#c7d5e6}.kicker,a{color:#75e3d0}.kicker{font-size:15px}
+label{display:block;margin:10px 0}input,select,button{font:inherit;border-radius:7px;padding:8px 12px}
+input,select{display:block;width:min(100%,420px);border:1px solid #49637b;background:#0c192c;color:#fff}
+button{background:#78e0cd;color:#071c24;font-weight:700;border:1px solid transparent;cursor:pointer}
+button.secondary{background:#23394e;color:#e6eef7;margin-left:6px}button:disabled{opacity:.45;cursor:default}
+#notice{color:#ffc684}#mode,#result-label{color:#82e6d6}article{border-left:3px solid #4d8da7;padding:0 13px;margin:16px 0}
+ul{padding-left:24px}strong{color:#eff6fd}
