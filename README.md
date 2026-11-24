@@ -18,7 +18,7 @@
 
 ## 下载与使用
 
-**正式下载暂未开放。** 正式发行时可从 [发行页面](https://github.com/yjn66627/AI-Commitment-StarMap-Agent/releases/tag/release-20261123) 获取 Windows x64 安装包。
+**[下载 Windows x64 安装包](https://github.com/yjn66627/AI-Commitment-StarMap-Agent/releases/download/release-20261123/AI-Commitment-StarMap-Agent-Windows-x64.zip)** · [发行说明与 SHA-256](https://github.com/yjn66627/AI-Commitment-StarMap-Agent/releases/tag/release-20261123)
 
 解压下载文件后，运行中文安装程序。选择空的自定义父目录时，安装程序会创建专属子目录。标准卸载保留项目资料。压缩包还包含中文卸载入口和使用说明。安装器未签名，Windows 可能显示未知发布者。在线 AI 需要自行配置模型与 API Key，启用后会向配置的模型服务发送分析所需内容。项目备份不包含模型配置和密钥。
 
